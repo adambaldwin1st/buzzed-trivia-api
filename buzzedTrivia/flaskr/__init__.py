@@ -1,7 +1,7 @@
 from flask import Flask
 
 
-def create_app(env, start_response):
+def create_app(environ, start_response):
     # create and configure the app
     app = Flask(__name__)
 
