@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "buzzed_trivia"}]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 flask = "^2.3.2"
 waitress = "^2.1.2"
 
