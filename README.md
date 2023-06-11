@@ -1,1 +1,1 @@
-# buzzed-trivia-api
+# Buzzed Trivia API
