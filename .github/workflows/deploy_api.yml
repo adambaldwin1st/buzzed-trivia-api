@@ -1,0 +1,32 @@
+name: Deploy API
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.BUZZED_TRIVIA_PRIVATE_KEY }}
+
+      - name: Deploying
+        run: |
+          ssh -o "StrictHostKeyChecking=no" ${{ secrets.USER }}@${{ secrets.EC2_IP_ADDRESS }} <<'ENDSSH'
+            cd /var/www/html/buzzed-trivia-api/buzzed_trivia
+            git fetch --all
+            git pull
+            poetry install
+            poetry shell
+            tmux kill-session -t api-tmux
+            tmux new-session -s api-tmux
+            cd buzzed_trivia
+            poetry run python app.py
+            tmux detach-client -s api-tmux
+            sudo systemctl restart nginx
+          ENDSSH
