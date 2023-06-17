@@ -17,7 +17,7 @@ jobs:
 
       - name: Deploying
         run: |
-          ssh -o "StrictHostKeyChecking=no -o ServerAliveInterval=60" ${{ secrets.USER }}@${{ secrets.EC2_IP_ADDRESS }} <<'ENDSSH'
+          ssh -o "StrictHostKeyChecking=no" ${{ secrets.USER }}@${{ secrets.EC2_IP_ADDRESS }} <<'ENDSSH'
             cd /var/www/html/buzzed-trivia-api/buzzed_trivia
             sudo systemctl restart api
             sudo systemctl restart nginx
