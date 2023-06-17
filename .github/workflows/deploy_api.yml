@@ -19,14 +19,6 @@ jobs:
         run: |
           ssh -o "StrictHostKeyChecking=no -o ServerAliveInterval=60" ${{ secrets.USER }}@${{ secrets.EC2_IP_ADDRESS }} <<'ENDSSH'
             cd /var/www/html/buzzed-trivia-api/buzzed_trivia
-            git fetch --all
-            git pull
-            poetry install
-            poetry shell
-            tmux kill-session -t api-tmux
-            tmux new-session -s api-tmux
-            cd buzzed_trivia
-            poetry run python app.py
-            tmux detach-client -s api-tmux
+            sudo systemctl restart api
             sudo systemctl restart nginx
           ENDSSH

@@ -16,7 +16,7 @@ def hello():
 
 @app.route('/deploy')
 def deploy():
-    return "Deploy works!"
+    return "Deploy works with GHA!"
 
 
 if __name__ == '__main__':
