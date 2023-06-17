@@ -19,6 +19,8 @@ jobs:
         run: |
           ssh -o "StrictHostKeyChecking=no" ${{ secrets.USER }}@${{ secrets.EC2_IP_ADDRESS }} <<'ENDSSH'
             cd /var/www/html/buzzed-trivia-api/buzzed_trivia
+            git fetch --all
+            git pull
             sudo systemctl restart api
             sudo systemctl restart nginx
           ENDSSH
