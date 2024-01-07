@@ -1,0 +1,17 @@
+[Unit]
+Description=Buzzed Trivia API
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=ubuntu
+WorkingDirectory=/var/www/html/buzzed-trivia-api/buzzed_trivia
+ExecStartPre=/home/ubuntu/.local/bin/poetry env remove --all
+ExecStartPre=/home/ubuntu/.local/bin/poetry install
+ExecStart=/home/ubuntu/.local/bin/poetry run python buzzed_trivia/app.py
+
+[Install]
+WantedBy=multi-user.target
